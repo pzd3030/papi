@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Consulta SQL para verificar o login
-    $query = "SELECT ID, Nome, admin FROM perfis WHERE Email = '$email' AND Senha = '$senha'";
+    $query = "SELECT ID, Nome, admin, Senha FROM perfis WHERE Email = '$email'";
 
     $result = $conn->query($query);
 
@@ -36,14 +36,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $row["ID"];
         $nome = $row["Nome"];
         $admin = $row["admin"];
+        $senhaArmazenada = $row["Senha"];
 
-        // Inicie a sessão
-        $_SESSION['id'] = $id;
-        $_SESSION['nome'] = $nome;
-        $_SESSION['admin'] = $admin; // Armazene o status de administrador na sessão
+        // Verifique se a senha fornecida corresponde à senha armazenada
+        if (password_verify($senha, $senhaArmazenada)) {
+            // Inicie a sessão
+            $_SESSION['id'] = $id;
+            $_SESSION['nome'] = $nome;
+            $_SESSION['admin'] = $admin; // Armazene o status de administrador na sessão
 
-        // Redirecione para a página de perfil ou outra página desejada
-        header("Location: perfis.php");
+            // Redirecione para a página de perfil ou outra página desejada
+            header("Location: perfis.php");
+        } else {
+            // Credenciais inválidas
+            echo "Credenciais inválidas. Tente novamente.";
+        }
     } else {
         // Credenciais inválidas
         echo "Credenciais inválidas. Tente novamente.";
@@ -55,4 +62,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Redirecionar para a página de login apenas se a sessão não estiver configurada
     header("Location: login.php");
 }
-?>
