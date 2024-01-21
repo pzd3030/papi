@@ -91,6 +91,7 @@ if (isset($_SESSION['id'])) {
                                     <h2><?php echo $row_cifra['song_title']; ?></h2>
                                     <h3><?php echo $row_cifra['artist']; ?></h3>
                                     <h3>Afinacao: <?php echo $row_cifra['tab_notation']; ?></h3>
+                                     <iframe width="420" height="420" src="<?php echo $row_cifra['video']; ?>"></iframe>
                                     <h3>Autor da cifra: <?php echo obterNomeUsuario($conn, $row_cifra['id_utilizador']); ?></h3>
                         
                                     <!-- Adicione outros detalhes do usuário conforme necessário -->

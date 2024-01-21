@@ -16,6 +16,8 @@ if ($conn->connect_error) {
 
 $email = $_POST['email'];
 $senha = $_POST['senha'];
+// Encriptar senha
+$senhaEncriptada = password_hash($senha, PASSWORD_DEFAULT);
 $nome = $_POST['nome'];
 $nome_usuario = $_POST['nome_usuario'];
 
@@ -27,7 +29,7 @@ if ($resultado->num_rows > 0) {
     echo "Erro: O email ou nome de usuário já estão em uso.";
 } else {
     
-    $inserir_query = "INSERT INTO perfis (Email, Senha, Nome, Nome_usuario) VALUES ('$email', '$senha', '$nome', '$nome_usuario')";
+    $inserir_query = "INSERT INTO perfis (Email, Senha, Nome, Nome_usuario) VALUES ('$email', '$senhaEncriptada', '$nome', '$nome_usuario')";
 
     if ($conn->query($inserir_query) === true) {
         header('Location: login.php');

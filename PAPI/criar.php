@@ -33,6 +33,9 @@ if (isset($_SESSION["id"])) {
 									<label for="artista">Artista:</label>
 									<input type="text" id="artista" name="artist" required ><br><br>
 
+									<label for="video">Video:</label>
+									<input type="text" id="video" name="video" required><br><br>
+
 								<select style="width: 300px; height:36.66px;" id="tab_notation" name="tab_notation">
 									<option value="E A D B G e">E A D G B e</option>
 									<option value="Eb Ab Db Bb Gb eb">Eb Ab Db Gb Bb eb</option>
